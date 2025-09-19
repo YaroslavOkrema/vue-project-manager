@@ -2,9 +2,11 @@ import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import { Project } from "@/store/ProjectModule/types";
 import { ProjectStatus } from "@/types/enums";
+import { useRouter } from "vue-router";
 
 export function useProjectTablePage() {
   const store = useStore();
+  const router = useRouter();
   const isModalOpen = ref(false);
   const selectedSort = ref("");
   const searchQuery = ref("");
@@ -61,6 +63,10 @@ export function useProjectTablePage() {
     }
   };
 
+  const goToProject = (id: string) => {
+    router.push(`/project/${id}`);
+  };
+
   return {
     loadProjects,
     addProject,
@@ -71,5 +77,7 @@ export function useProjectTablePage() {
     sortedAndSearchedProjects,
     searchQuery,
     getStatusClass,
+    router,
+    goToProject,
   };
 }

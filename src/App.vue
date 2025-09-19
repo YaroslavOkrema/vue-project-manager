@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import ProjectTablePage from "@/pages/ProjectTablePage/ProjectTablePage.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <ProjectTablePage />
+  <router-view />
 </template>
 
 <style lang="scss">

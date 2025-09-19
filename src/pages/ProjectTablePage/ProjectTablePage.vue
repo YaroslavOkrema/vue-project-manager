@@ -14,6 +14,7 @@ const {
   sortedAndSearchedProjects,
   searchQuery,
   getStatusClass,
+  goToProject,
 } = useProjectTablePage();
 
 onMounted(() => {
@@ -57,7 +58,11 @@ onMounted(() => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in sortedAndSearchedProjects" :key="project.id">
+        <tr
+          v-for="project in sortedAndSearchedProjects"
+          :key="project.id"
+          @click="goToProject(project.id)"
+        >
           <td>{{ project.id }}</td>
           <td>{{ project.projectName }}</td>
           <td>{{ project.tasksCount }}</td>
