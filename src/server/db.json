@@ -2,11 +2,24 @@
   "projects": [
     {
       "id": 1,
-      "name": "Frontend redesign",
-      "description": "Update the main landing page",
+      "projectName": "Frontend redesign",
       "status": "Active",
-      "createdAt": "2025-09-19T10:00:00Z",
+      "created": "20.09.2025",
       "tasksCount": 5
+    },
+    {
+      "id": 2,
+      "projectName": "Backend API",
+      "status": "In Progress",
+      "created": "19.09.2025",
+      "tasksCount": 3
+    },
+    {
+      "id": 3,
+      "projectName": "Mobile App Design",
+      "status": "Completed",
+      "created": "18.09.2025",
+      "tasksCount": 8
     }
   ],
   "tasks": [

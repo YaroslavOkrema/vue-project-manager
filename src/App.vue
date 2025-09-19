@@ -1,7 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ProjectTablePage from "@/pages/ProjectTablePage/ProjectTablePage.vue";
+</script>
 
 <template>
-  <div>Hello</div>
+  <ProjectTablePage />
 </template>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+</style>
