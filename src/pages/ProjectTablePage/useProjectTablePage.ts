@@ -1,6 +1,7 @@
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import { Project } from "@/store/ProjectModule/types";
+import { ProjectStatus } from "@/types/enums";
 
 export function useProjectTablePage() {
   const store = useStore();
@@ -46,6 +47,20 @@ export function useProjectTablePage() {
     );
   });
 
+  const getStatusClass = (status: string) => {
+    switch (status.toLowerCase()) {
+      case ProjectStatus.Active:
+        return ProjectStatus.Active;
+      case "in progress":
+      case ProjectStatus.InProgress:
+        return ProjectStatus.InProgress;
+      case ProjectStatus.Completed:
+        return ProjectStatus.Completed;
+      default:
+        return "";
+    }
+  };
+
   return {
     loadProjects,
     addProject,
@@ -55,5 +70,6 @@ export function useProjectTablePage() {
     selectedSort,
     sortedAndSearchedProjects,
     searchQuery,
+    getStatusClass,
   };
 }

@@ -13,6 +13,7 @@ const {
   selectedSort,
   sortedAndSearchedProjects,
   searchQuery,
+  getStatusClass,
 } = useProjectTablePage();
 
 onMounted(() => {
@@ -61,7 +62,9 @@ onMounted(() => {
           <td>{{ project.projectName }}</td>
           <td>{{ project.tasksCount }}</td>
           <td>
-            <span class="status active">{{ project.status }}</span>
+            <span class="status" :class="getStatusClass(project.status)">
+              {{ project.status }}
+            </span>
           </td>
           <td>{{ project.created }}</td>
         </tr>
