@@ -53,14 +53,20 @@ const closeWindow = () => {
   }
 
   .close-btn {
+    width: 100%;
     display: block;
     margin: 15px auto 0;
-    padding: 8px 15px;
+    padding: 10px 12px;
     background-color: #dc3545;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: #e61919;
+    }
   }
 }
 </style>

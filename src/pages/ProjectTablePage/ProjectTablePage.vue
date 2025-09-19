@@ -2,28 +2,10 @@
 import { onMounted, ref } from "vue";
 import { useProjectTablePage } from "@/pages/ProjectTablePage/useProjectTablePage";
 import ModalWindow from "@/components/ModalWindow/ModalWindow.vue";
+import FormProjects from "@/components/FormProjects/FormProjects.vue";
 
 const { projects, loadProjects, addProject } = useProjectTablePage();
-
-const projectName = ref("");
-const status = ref("Active");
-const tasksCount = ref(0);
-
 const isModalOpen = ref(false);
-
-const submit = async () => {
-  await addProject({
-    id: Date.now(),
-    projectName: projectName.value,
-    status: status.value,
-    created: new Date().toLocaleDateString("uk-UA"),
-    tasksCount: tasksCount.value,
-  });
-
-  projectName.value = "";
-  tasksCount.value = 0;
-  isModalOpen.value = false;
-};
 
 onMounted(() => {
   loadProjects();
@@ -33,27 +15,15 @@ onMounted(() => {
 <template>
   <div class="table-container">
     <h2>Проєкти</h2>
-    <button class="open-modal-btn" @click="isModalOpen = true">
+    <button class="open-modal" @click="isModalOpen = true">
       Додати проєкт
     </button>
-
     <ModalWindow v-model="isModalOpen" title="Додати новий проект">
-      <form @submit.prevent="submit">
-        <input v-model="projectName" type="text" placeholder="Назва проекту" />
-        <input
-          v-model.number="tasksCount"
-          type="number"
-          placeholder="Кількість завдань"
-        />
-        <select v-model="status">
-          <option>Active</option>
-          <option>In Progress</option>
-          <option>Completed</option>
-        </select>
-        <button type="submit">Додати</button>
-      </form>
+      <FormProjects
+        :add-project="addProject"
+        v-model:is-modal-open="isModalOpen"
+      />
     </ModalWindow>
-
     <table class="projects-table">
       <thead>
         <tr>
@@ -88,6 +58,22 @@ onMounted(() => {
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   font-family: "Arial", sans-serif;
+
+  .open-modal {
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    background-color: green;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #0ed811;
+    }
+  }
 
   h2 {
     text-align: center;
