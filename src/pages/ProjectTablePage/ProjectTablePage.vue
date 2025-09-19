@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useProjectTablePage } from "@/pages/ProjectTablePage/useProjectTablePage";
 import ModalWindow from "@/components/ModalWindow/ModalWindow.vue";
 import FormProjects from "@/components/FormProjects/FormProjects.vue";
+import MySelect from "@/components/MySelect/MySelect.vue";
 
-const { projects, loadProjects, addProject } = useProjectTablePage();
-const isModalOpen = ref(false);
+const {
+  loadProjects,
+  addProject,
+  sortedProjects,
+  sortOptions,
+  isModalOpen,
+  selectedSort,
+} = useProjectTablePage();
 
 onMounted(() => {
   loadProjects();
@@ -24,6 +31,14 @@ onMounted(() => {
         v-model:is-modal-open="isModalOpen"
       />
     </ModalWindow>
+    <div class="table-filters">
+      <input class="filters-input" type="text" />
+      <MySelect
+        v-model="selectedSort"
+        :options="sortOptions"
+        class="filters-select"
+      ></MySelect>
+    </div>
     <table class="projects-table">
       <thead>
         <tr>
@@ -35,7 +50,7 @@ onMounted(() => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
+        <tr v-for="project in sortedProjects" :key="project.id">
           <td>{{ project.id }}</td>
           <td>{{ project.projectName }}</td>
           <td>{{ project.tasksCount }}</td>
@@ -127,6 +142,43 @@ onMounted(() => {
           background-color: #6c757d;
         }
       }
+    }
+  }
+
+  .table-filters {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .filters-input {
+    flex: 3;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+    }
+  }
+
+  .filters-select {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
     }
   }
 }
