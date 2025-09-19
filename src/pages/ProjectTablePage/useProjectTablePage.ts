@@ -6,6 +6,7 @@ export function useProjectTablePage() {
   const store = useStore();
   const isModalOpen = ref(false);
   const selectedSort = ref("");
+  const searchQuery = ref("");
 
   const sortOptions = [
     { value: "id", name: "По ID" },
@@ -39,6 +40,12 @@ export function useProjectTablePage() {
       : projects.value
   );
 
+  const sortedAndSearchedProjects = computed(() => {
+    return sortedProjects.value.filter((post) =>
+      post.projectName.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+  });
+
   return {
     loadProjects,
     addProject,
@@ -46,5 +53,7 @@ export function useProjectTablePage() {
     sortedProjects,
     sortOptions,
     selectedSort,
+    sortedAndSearchedProjects,
+    searchQuery,
   };
 }

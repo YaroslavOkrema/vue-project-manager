@@ -8,10 +8,11 @@ import MySelect from "@/components/MySelect/MySelect.vue";
 const {
   loadProjects,
   addProject,
-  sortedProjects,
   sortOptions,
   isModalOpen,
   selectedSort,
+  sortedAndSearchedProjects,
+  searchQuery,
 } = useProjectTablePage();
 
 onMounted(() => {
@@ -32,7 +33,12 @@ onMounted(() => {
       />
     </ModalWindow>
     <div class="table-filters">
-      <input class="filters-input" type="text" />
+      <input
+        v-model="searchQuery"
+        class="filters-input"
+        type="text"
+        placeholder="Введіть назву проекта..."
+      />
       <MySelect
         v-model="selectedSort"
         :options="sortOptions"
@@ -50,7 +56,7 @@ onMounted(() => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in sortedProjects" :key="project.id">
+        <tr v-for="project in sortedAndSearchedProjects" :key="project.id">
           <td>{{ project.id }}</td>
           <td>{{ project.projectName }}</td>
           <td>{{ project.tasksCount }}</td>
