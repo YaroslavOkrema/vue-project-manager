@@ -1,0 +1,22 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "Frontend redesign",
+      "description": "Update the main landing page",
+      "status": "Active",
+      "createdAt": "2025-09-19T10:00:00Z",
+      "tasksCount": 5
+    }
+  ],
+  "tasks": [
+    {
+      "id": 101,
+      "projectId": 1,
+      "title": "Create wireframes",
+      "assignee": "John Doe",
+      "status": "To Do",
+      "dueDate": "2025-09-25"
+    }
+  ]
+}
