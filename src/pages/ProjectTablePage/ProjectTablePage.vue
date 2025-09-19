@@ -1,8 +1,29 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useProjectTablePage } from "@/pages/ProjectTablePage/useProjectTablePage";
+import ModalWindow from "@/components/ModalWindow/ModalWindow.vue";
 
-const { projects, loadProjects } = useProjectTablePage();
+const { projects, loadProjects, addProject } = useProjectTablePage();
+
+const projectName = ref("");
+const status = ref("Active");
+const tasksCount = ref(0);
+
+const isModalOpen = ref(false);
+
+const submit = async () => {
+  await addProject({
+    id: Date.now(),
+    projectName: projectName.value,
+    status: status.value,
+    created: new Date().toLocaleDateString("uk-UA"),
+    tasksCount: tasksCount.value,
+  });
+
+  projectName.value = "";
+  tasksCount.value = 0;
+  isModalOpen.value = false;
+};
 
 onMounted(() => {
   loadProjects();
@@ -12,6 +33,27 @@ onMounted(() => {
 <template>
   <div class="table-container">
     <h2>Проєкти</h2>
+    <button class="open-modal-btn" @click="isModalOpen = true">
+      Додати проєкт
+    </button>
+
+    <ModalWindow v-model="isModalOpen" title="Додати новий проект">
+      <form @submit.prevent="submit">
+        <input v-model="projectName" type="text" placeholder="Назва проекту" />
+        <input
+          v-model.number="tasksCount"
+          type="number"
+          placeholder="Кількість завдань"
+        />
+        <select v-model="status">
+          <option>Active</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+        <button type="submit">Додати</button>
+      </form>
+    </ModalWindow>
+
     <table class="projects-table">
       <thead>
         <tr>

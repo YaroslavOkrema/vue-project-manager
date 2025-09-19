@@ -13,5 +13,9 @@ export function useProjectTablePage() {
     return store.dispatch("projects/fetchProjects");
   };
 
-  return { projects, loadProjects };
+  const addProject = (project: Project) => {
+    return store.dispatch("projects/addProject", project);
+  };
+
+  return { projects, loadProjects, addProject };
 }

@@ -25,6 +25,18 @@ export const projectModule: Module<ProjectState, unknown> = {
         console.log(error);
       }
     },
+
+    async addProject({ commit, state }, newProject: Project) {
+      try {
+        const response = await axios.post<Project>(
+          "http://localhost:3000/projects",
+          newProject
+        );
+        commit("setProjects", [...state.projects, response.data]);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   namespaced: true,
 };

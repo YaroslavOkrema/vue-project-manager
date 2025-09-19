@@ -3,7 +3,7 @@ export interface Project {
   projectName: string;
   tasksCount: number;
   status: string;
-  created: number;
+  created: string;
 }
 
 export interface ProjectState {
