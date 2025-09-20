@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from "vue";
-import { Task } from "@/store/TaskModule/types";
 import { useFormTasks } from "@/components/FormTasks/useFormTasks";
+import { FormTasksProps } from "@/components/FormTasks/types";
 
-const props = defineProps<{
-  projectId: number;
-  addTask: (task: Task) => Promise<void>;
-}>();
+const props = defineProps<FormTasksProps>();
 
 const emit = defineEmits<{ (e: "update:isModalOpen", value: boolean): void }>();
 

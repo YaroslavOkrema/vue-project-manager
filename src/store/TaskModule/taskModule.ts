@@ -1,8 +1,9 @@
 import { Module } from "vuex";
 import { Task, TaskState } from "@/store/TaskModule/types";
 import axios from "axios";
+import { RootState } from "@/store/types";
 
-export const taskModule: Module<TaskState, unknown> = {
+export const taskModule: Module<TaskState, RootState> = {
   state: () => ({
     tasks: [],
   }),

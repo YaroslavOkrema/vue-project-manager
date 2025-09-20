@@ -1,5 +1,5 @@
 import { Store } from "vuex";
-import { RootState } from "@/store/plugins/LocalStoragePlugin/types";
+import { RootState } from "@/store/types";
 
 export function localStoragePlugin(store: Store<RootState>) {
   const savedState = localStorage.getItem("vuex");

@@ -1,8 +1,9 @@
 import { Module } from "vuex";
 import { Project, ProjectState } from "@/store/ProjectModule/types";
 import axios from "axios";
+import { RootState } from "@/store/types";
 
-export const projectModule: Module<ProjectState, unknown> = {
+export const projectModule: Module<ProjectState, RootState> = {
   state: () => ({
     projects: [],
   }),

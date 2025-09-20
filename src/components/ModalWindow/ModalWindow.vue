@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
+import { ModalWindowProps } from "@/components/ModalWindow/types";
 
-const props = defineProps<{
-  modelValue: boolean;
-  title?: string;
-}>();
+const props = defineProps<ModalWindowProps>();
 
 const emit = defineEmits<{
   (event: "update:modelValue", value: boolean): void;

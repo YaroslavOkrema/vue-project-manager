@@ -36,7 +36,7 @@ export function useFormTasks(
     return true;
   };
 
-  const validate = () => {
+  const validate = (): boolean => {
     if (!taskName.value.trim()) {
       error.value = "Заповніть всі поля";
       return false;

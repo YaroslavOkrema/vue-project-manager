@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
-import { Project } from "@/store/ProjectModule/types";
 import { useFormProject } from "@/components/FormProjects/useFormProject";
+import { FormProjectProps } from "@/components/FormProjects/types";
 
-const props = defineProps<{
-  addProject: (project: Project) => Promise<void>;
-}>();
+const props = defineProps<FormProjectProps>();
 
 const emit = defineEmits<{ (e: "update:isModalOpen", value: boolean): void }>();
 

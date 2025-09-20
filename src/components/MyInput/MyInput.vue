@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
+import { MyInputProps } from "@/components/MyInput/types";
 
-const props = defineProps<{
-  modelValue: string;
-  placeholder?: string;
-}>();
+const props = defineProps<MyInputProps>();
 
 const emit = defineEmits<{
   (event: "update:modelValue", value: string): void;
