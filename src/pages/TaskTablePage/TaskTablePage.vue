@@ -5,6 +5,7 @@ import MyInput from "@/components/MyInput/MyInput.vue";
 import MySelect from "@/components/MySelect/MySelect.vue";
 import FormTasks from "@/components/FormTasks/FormTasks.vue";
 import { useTaskTablePage } from "@/pages/TaskTablePage/useTaskTablePage";
+import draggable from "vuedraggable";
 
 const {
   taskId,
@@ -12,9 +13,9 @@ const {
   sortOptions,
   isModalOpen,
   route,
-  sortedAndSearchedTasks,
   selectedSort,
   searchQuery,
+  draggableTasks,
 } = useTaskTablePage();
 </script>
 
@@ -43,17 +44,24 @@ const {
           <th>Термін виконання</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="task in sortedAndSearchedTasks" :key="task.id">
-          <td>{{ task.id }}</td>
-          <td>{{ task.title }}</td>
-          <td>{{ task.assignee }}</td>
-          <td>
-            <span>{{ task.status }}</span>
-          </td>
-          <td>{{ task.dueDate }}</td>
-        </tr>
-      </tbody>
+      <draggable
+        tag="tbody"
+        v-model="draggableTasks"
+        item-key="id"
+        @end="onUpdate"
+      >
+        <template #item="{ element }">
+          <tr>
+            <td>{{ element.id }}</td>
+            <td>{{ element.title }}</td>
+            <td>{{ element.assignee }}</td>
+            <td>
+              <span>{{ element.status }}</span>
+            </td>
+            <td>{{ element.dueDate }}</td>
+          </tr>
+        </template>
+      </draggable>
     </table>
   </div>
 </template>

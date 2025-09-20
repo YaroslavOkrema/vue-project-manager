@@ -2,6 +2,7 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { ref, computed, onMounted } from "vue";
 import { Task } from "@/store/TaskModule/types";
+import { useDraggable } from "@/hooks/useDraggable";
 
 export function useTaskTablePage() {
   const route = useRoute();
@@ -47,6 +48,8 @@ export function useTaskTablePage() {
     )
   );
 
+  const draggableTasks = useDraggable(sortedAndSearchedTasks);
+
   return {
     taskId,
     isModalOpen,
@@ -57,5 +60,6 @@ export function useTaskTablePage() {
     selectedSort,
     searchQuery,
     sortedAndSearchedTasks,
+    draggableTasks,
   };
 }

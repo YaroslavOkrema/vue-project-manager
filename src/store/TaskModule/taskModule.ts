@@ -15,6 +15,9 @@ export const taskModule: Module<TaskState, unknown> = {
     setTasks(state: TaskState, tasks: Task[]): void {
       state.tasks = tasks;
     },
+    reorderTasks(state: TaskState, tasks: Task[]): void {
+      state.tasks = tasks;
+    },
   },
   actions: {
     async fetchTasks({ commit }, projectId: number): Promise<void> {
