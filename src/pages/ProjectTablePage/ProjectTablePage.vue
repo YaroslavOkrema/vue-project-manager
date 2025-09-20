@@ -4,6 +4,8 @@ import { useProjectTablePage } from "@/pages/ProjectTablePage/useProjectTablePag
 import ModalWindow from "@/components/ModalWindow/ModalWindow.vue";
 import FormProjects from "@/components/FormProjects/FormProjects.vue";
 import MySelect from "@/components/MySelect/MySelect.vue";
+import MyButton from "@/components/MyButton/MyButton.vue";
+import MyInput from "@/components/MyInput/MyInput.vue";
 
 const {
   loadProjects,
@@ -25,9 +27,7 @@ onMounted(() => {
 <template>
   <div class="table-container">
     <h2>Проєкти</h2>
-    <button class="open-modal" @click="isModalOpen = true">
-      Додати проєкт
-    </button>
+    <MyButton text="Додати проект" @click="isModalOpen = true" />
     <ModalWindow v-model="isModalOpen" title="Додати новий проект">
       <FormProjects
         :add-project="addProject"
@@ -35,17 +35,12 @@ onMounted(() => {
       />
     </ModalWindow>
     <div class="table-filters">
-      <input
+      <MyInput
         v-model="searchQuery"
-        class="filters-input"
         type="text"
         placeholder="Введіть назву проекта..."
       />
-      <MySelect
-        v-model="selectedSort"
-        :options="sortOptions"
-        class="filters-select"
-      ></MySelect>
+      <MySelect v-model="selectedSort" :options="sortOptions"></MySelect>
     </div>
     <table class="projects-table">
       <thead>
@@ -87,22 +82,6 @@ onMounted(() => {
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   font-family: "Arial", sans-serif;
-
-  .open-modal {
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    background-color: green;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: #0ed811;
-    }
-  }
 
   h2 {
     text-align: center;
@@ -164,36 +143,6 @@ onMounted(() => {
     gap: 8px;
     width: 100%;
     margin-bottom: 20px;
-  }
-
-  .filters-input {
-    flex: 3;
-    padding: 10px 12px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-
-    &:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
-    }
-  }
-
-  .filters-select {
-    flex: 1;
-    padding: 10px 12px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-
-    &:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
-    }
   }
 }
 </style>

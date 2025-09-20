@@ -20,7 +20,7 @@ function changeOption(event) {
 </script>
 
 <template>
-  <select :value="modelValue" @change="changeOption">
+  <select class="filters-select" :value="modelValue" @change="changeOption">
     <option disabled value="">Виберіть зі списку</option>
     <option v-for="option in options" :key="option.value" :value="option.value">
       {{ option.name }}
@@ -28,4 +28,19 @@ function changeOption(event) {
   </select>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.filters-select {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+  }
+}
+</style>

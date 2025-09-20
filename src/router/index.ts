@@ -8,7 +8,8 @@ const routes: Array<RouteRecordRaw> = [
     component: ProjectTablePage,
   },
   {
-    path: "/project/:id",
+    path: "/tasks/:id",
+    name: "project-tasks",
     component: TaskTablePage,
   },
 ];

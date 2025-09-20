@@ -64,7 +64,7 @@ export function useProjectTablePage() {
   };
 
   const goToProject = (id: string) => {
-    router.push(`/project/${id}`);
+    router.push(`/tasks/${id}`);
   };
 
   return {
