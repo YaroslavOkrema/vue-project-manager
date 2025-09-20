@@ -98,7 +98,7 @@ const submit = async () => {
 
   &__validate {
     color: red;
-    font-size: 0.9rem;
+    font-size: 16px;
   }
 }
 </style>

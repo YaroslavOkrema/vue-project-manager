@@ -10,12 +10,14 @@ const props = defineProps<{
 
 const emit = defineEmits<{ (e: "update:isModalOpen", value: boolean): void }>();
 
-const { taskName, assigned, status, dueDate, submitTask, options } =
+const { taskName, assigned, status, dueDate, submitTask, options, error } =
   useFormTasks(props.addTask, props.projectId);
 
 const submitAndClose = async () => {
-  await submitTask();
-  emit("update:isModalOpen", false);
+  const success = await submitTask();
+  if (success) {
+    emit("update:isModalOpen", false);
+  }
 };
 </script>
 
@@ -29,6 +31,7 @@ const submitAndClose = async () => {
       </option>
     </select>
     <input v-model="dueDate" type="date" placeholder="Термін виконання" />
+    <p v-if="error" class="error">{{ error }}</p>
     <button type="submit">Додати</button>
   </form>
 </template>
@@ -62,6 +65,11 @@ const submitAndClose = async () => {
     &:hover {
       background-color: #0ed811;
     }
+  }
+
+  .error {
+    color: red;
+    font-size: 16px;
   }
 }
 </style>

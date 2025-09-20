@@ -9,6 +9,7 @@ export function useFormTasks(
   const assigned = ref("");
   const status = ref("Active");
   const dueDate = ref("");
+  const error = ref("");
 
   const options = ["Active", "In Progress", "Completed"];
 
@@ -19,8 +20,8 @@ export function useFormTasks(
     dueDate.value = "";
   };
 
-  const submitTask = async (): Promise<void> => {
-    if (!taskName.value || !assigned.value || !dueDate.value) return;
+  const submitTask = async (): Promise<boolean> => {
+    if (!validate()) return false;
 
     await addTaskFn({
       id: Date.now(),
@@ -32,6 +33,32 @@ export function useFormTasks(
     });
 
     resetForm();
+    return true;
+  };
+
+  const validate = () => {
+    if (!taskName.value.trim()) {
+      error.value = "Заповніть всі поля";
+      return false;
+    }
+
+    if (!assigned.value.trim()) {
+      error.value = "Заповніть всі поля";
+      return false;
+    }
+
+    if (!status.value.trim()) {
+      error.value = "Заповніть всі поля";
+      return false;
+    }
+
+    if (!dueDate.value.trim()) {
+      error.value = "Заповніть всі поля";
+      return false;
+    }
+
+    error.value = "";
+    return true;
   };
 
   return {
@@ -42,5 +69,7 @@ export function useFormTasks(
     options,
     submitTask,
     resetForm,
+    validate,
+    error,
   };
 }
