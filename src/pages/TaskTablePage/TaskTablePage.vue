@@ -6,8 +6,16 @@ import MySelect from "@/components/MySelect/MySelect.vue";
 import FormTasks from "@/components/FormTasks/FormTasks.vue";
 import { useTaskTablePage } from "@/pages/TaskTablePage/useTaskTablePage";
 
-const { taskId, addTask, tasks, sortOptions, isModalOpen, route } =
-  useTaskTablePage();
+const {
+  taskId,
+  addTask,
+  sortOptions,
+  isModalOpen,
+  route,
+  sortedAndSearchedTasks,
+  selectedSort,
+  searchQuery,
+} = useTaskTablePage();
 </script>
 
 <template>
@@ -22,8 +30,8 @@ const { taskId, addTask, tasks, sortOptions, isModalOpen, route } =
       />
     </ModalWindow>
     <div class="table-filters">
-      <MyInput model-value="" placeholder="Введіть назву завдання..." />
-      <MySelect :options="sortOptions" />
+      <MyInput v-model="searchQuery" placeholder="Введіть назву завдання..." />
+      <MySelect v-model="selectedSort" :options="sortOptions" />
     </div>
     <table class="projects-table">
       <thead>
@@ -36,7 +44,7 @@ const { taskId, addTask, tasks, sortOptions, isModalOpen, route } =
         </tr>
       </thead>
       <tbody>
-        <tr v-for="task in tasks" :key="task.id">
+        <tr v-for="task in sortedAndSearchedTasks" :key="task.id">
           <td>{{ task.id }}</td>
           <td>{{ task.title }}</td>
           <td>{{ task.assignee }}</td>

@@ -8,13 +8,15 @@ export function useTaskTablePage() {
   const store = useStore();
   const taskId = Number(route.params.id);
   const isModalOpen = ref(false);
+  const selectedSort = ref("");
+  const searchQuery = ref("");
 
   const sortOptions = [
-    { value: "id", name: "По ID" },
-    { value: "projectName", name: "По назві проєкту" },
-    { value: "tasksCount", name: "По кількості завдань" },
-    { value: "status", name: "По статусу" },
+    { value: "dueDate", name: "За терміном" },
+    { value: "status", name: "За статусом" },
   ];
+
+  const tasks = computed<Task[]>(() => store.getters["tasks/allTask"]);
 
   const addTask = (task: Task) => {
     return store.dispatch("tasks/addTask", task);
@@ -24,7 +26,36 @@ export function useTaskTablePage() {
     store.dispatch("tasks/fetchTasks", taskId);
   });
 
-  const tasks = computed<Task[]>(() => store.getters["tasks/allTask"]);
+  const sortedTasks = computed(() =>
+    selectedSort.value
+      ? [...tasks.value].sort((a: Task, b: Task) => {
+          const valA = a[selectedSort.value as keyof Task];
+          const valB = b[selectedSort.value as keyof Task];
 
-  return { taskId, isModalOpen, sortOptions, addTask, tasks, route };
+          return typeof valA === "string" && typeof valB === "string"
+            ? valA.localeCompare(valB)
+            : (valA as number) - (valB as number);
+        })
+      : tasks.value
+  );
+
+  const sortedAndSearchedTasks = computed(() =>
+    sortedTasks.value.filter(
+      (task) =>
+        task.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+        task.status.toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  );
+
+  return {
+    taskId,
+    isModalOpen,
+    sortOptions,
+    addTask,
+    tasks,
+    route,
+    selectedSort,
+    searchQuery,
+    sortedAndSearchedTasks,
+  };
 }
