@@ -21,7 +21,7 @@ const {
 
 <template>
   <div class="table-container">
-    <h2>Project ID: {{ route.params.id }}</h2>
+    <h2>ID проекту: {{ route.params.id }}</h2>
     <MyButton text="Додати завдання" @click="isModalOpen = true" />
     <ModalWindow v-model="isModalOpen" title="Додати нове завдання">
       <FormTasks

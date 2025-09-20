@@ -2,6 +2,7 @@
 import { defineEmits, defineProps } from "vue";
 import { useFormTasks } from "@/components/FormTasks/useFormTasks";
 import { FormTasksProps } from "@/components/FormTasks/types";
+import MyInput from "@/components/MyInput/MyInput.vue";
 
 const props = defineProps<FormTasksProps>();
 
@@ -20,14 +21,14 @@ const submitAndClose = async () => {
 
 <template>
   <form class="form-task" @submit.prevent="submitAndClose">
-    <input v-model="taskName" placeholder="Назва завдання" />
-    <input v-model="assigned" placeholder="Виконавець" />
+    <MyInput v-model="taskName" placeholder="Назва завдання" />
+    <MyInput v-model="assigned" placeholder="Виконавець" />
     <select v-model="status">
       <option v-for="option in options" :key="option" :value="option">
         {{ option }}
       </option>
     </select>
-    <input v-model="dueDate" type="date" placeholder="Термін виконання" />
+    <MyInput v-model="dueDate" type="date" placeholder="Термін виконання" />
     <p v-if="error" class="error">{{ error }}</p>
     <button type="submit">Додати</button>
   </form>
