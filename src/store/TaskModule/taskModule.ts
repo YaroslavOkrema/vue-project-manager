@@ -27,6 +27,18 @@ export const taskModule: Module<TaskState, unknown> = {
         console.log(error);
       }
     },
+
+    async addTask({ commit, state }, newTask: Task): Promise<void> {
+      try {
+        const response = await axios.post<Task>(
+          `http://localhost:3000/tasks`,
+          newTask
+        );
+        commit("setTasks", [...state.tasks, response.data]);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   namespaced: true,
 };
