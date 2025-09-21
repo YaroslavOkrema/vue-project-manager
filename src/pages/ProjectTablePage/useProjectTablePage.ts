@@ -25,7 +25,7 @@ export function useProjectTablePage() {
     return store.dispatch("projects/fetchProjects");
   };
 
-  const addProject = (project: Project) => {
+  const addProject = (project: Omit<Project, "id">) => {
     return store.dispatch("projects/addProject", project);
   };
 
@@ -48,8 +48,12 @@ export function useProjectTablePage() {
     );
   });
 
-  const goToProject = (id: string) => {
+  const goToProject = (id: string): void => {
     router.push(`/tasks/${id}`);
+  };
+
+  const onDelete = async (id: string) => {
+    await store.dispatch("projects/deleteProject", id);
   };
 
   return {
@@ -63,5 +67,6 @@ export function useProjectTablePage() {
     searchQuery,
     router,
     goToProject,
+    onDelete,
   };
 }

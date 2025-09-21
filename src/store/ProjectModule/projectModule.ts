@@ -13,8 +13,11 @@ export const projectModule: Module<ProjectState, RootState> = {
     },
   },
   mutations: {
-    setProjects(state, projects: Project[]): void {
+    setProjects(state: ProjectState, projects: Project[]): void {
       state.projects = projects;
+    },
+    removeProject(state: ProjectState, id: number) {
+      state.projects = state.projects.filter((project) => project.id !== id);
     },
   },
   actions: {
@@ -34,6 +37,14 @@ export const projectModule: Module<ProjectState, RootState> = {
           newProject
         );
         commit("setProjects", [...state.projects, response.data]);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteProject({ commit }, id: number) {
+      try {
+        await axios.delete(`http://localhost:3000/projects/${id}`);
+        commit("removeProject", id);
       } catch (error) {
         console.error(error);
       }

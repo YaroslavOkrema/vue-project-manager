@@ -18,6 +18,7 @@ const {
   searchQuery,
   draggableTasks,
   goBack,
+  onDeleteTask,
 } = useTaskTablePage();
 </script>
 
@@ -47,6 +48,7 @@ const {
           <th>Виконавець</th>
           <th>Статус</th>
           <th>Термін виконання</th>
+          <th></th>
         </tr>
       </thead>
       <draggable
@@ -66,6 +68,11 @@ const {
               }}</span>
             </td>
             <td>{{ element.dueDate }}</td>
+            <td>
+              <button class="delete-btn" @click="onDeleteTask(element.id)">
+                Видалити
+              </button>
+            </td>
           </tr>
         </template>
       </draggable>
@@ -79,7 +86,7 @@ const {
 
 <style scoped lang="scss">
 .table-container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 20px;
   background: #ffffff;
@@ -161,6 +168,26 @@ const {
 
       &.completed {
         background-color: #6c757d;
+      }
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+
+      &:hover {
+        background-color: #c82333;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
       }
     }
   }

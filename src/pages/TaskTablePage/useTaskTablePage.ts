@@ -55,6 +55,10 @@ export function useTaskTablePage() {
 
   const draggableTasks = useDraggable(sortedAndSearchedTasks);
 
+  const onDeleteTask = async (taskId: number) => {
+    await store.dispatch("tasks/deleteTask", taskId);
+  };
+
   return {
     taskId,
     isModalOpen,
@@ -67,5 +71,6 @@ export function useTaskTablePage() {
     sortedAndSearchedTasks,
     draggableTasks,
     goBack,
+    onDeleteTask,
   };
 }
