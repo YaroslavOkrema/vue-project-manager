@@ -6,6 +6,7 @@ import MySelect from "@/components/MySelect/MySelect.vue";
 import FormTasks from "@/components/FormTasks/FormTasks.vue";
 import { useTaskTablePage } from "@/pages/TaskTablePage/useTaskTablePage";
 import draggable from "vuedraggable";
+import { getStatusClass } from "@/helpers/helpers";
 
 const {
   taskId,
@@ -16,13 +17,17 @@ const {
   selectedSort,
   searchQuery,
   draggableTasks,
+  goBack,
 } = useTaskTablePage();
 </script>
 
 <template>
   <div class="table-container">
     <h2>ID проекту: {{ route.params.id }}</h2>
-    <MyButton text="Додати завдання" @click="isModalOpen = true" />
+    <div class="buttons">
+      <MyButton text="Додати завдання" @click="isModalOpen = true" />
+      <MyButton text="Назад" @click="goBack" />
+    </div>
     <ModalWindow v-model="isModalOpen" title="Додати нове завдання">
       <FormTasks
         :project-id="taskId"
@@ -56,7 +61,9 @@ const {
             <td>{{ element.title }}</td>
             <td>{{ element.assignee }}</td>
             <td>
-              <span>{{ element.status }}</span>
+              <span class="status" :class="getStatusClass(element.status)">{{
+                element.status
+              }}</span>
             </td>
             <td>{{ element.dueDate }}</td>
           </tr>
@@ -152,6 +159,11 @@ const {
         background-color: #6c757d;
       }
     }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

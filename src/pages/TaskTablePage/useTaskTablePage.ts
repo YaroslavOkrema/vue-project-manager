@@ -1,4 +1,4 @@
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { ref, computed, onMounted } from "vue";
 import { Task } from "@/store/TaskModule/types";
@@ -6,6 +6,7 @@ import { useDraggable } from "@/hooks/useDraggable";
 
 export function useTaskTablePage() {
   const route = useRoute();
+  const router = useRouter();
   const store = useStore();
   const taskId = Number(route.params.id);
   const isModalOpen = ref(false);
@@ -26,6 +27,10 @@ export function useTaskTablePage() {
   onMounted(() => {
     store.dispatch("tasks/fetchTasks", taskId);
   });
+
+  const goBack = () => {
+    router.push("/");
+  };
 
   const sortedTasks = computed(() =>
     selectedSort.value
@@ -61,5 +66,6 @@ export function useTaskTablePage() {
     searchQuery,
     sortedAndSearchedTasks,
     draggableTasks,
+    goBack,
   };
 }

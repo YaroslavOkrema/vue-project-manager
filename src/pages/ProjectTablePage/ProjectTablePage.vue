@@ -6,6 +6,7 @@ import FormProjects from "@/components/FormProjects/FormProjects.vue";
 import MySelect from "@/components/MySelect/MySelect.vue";
 import MyButton from "@/components/MyButton/MyButton.vue";
 import MyInput from "@/components/MyInput/MyInput.vue";
+import { getStatusClass } from "@/helpers/helpers";
 
 const {
   loadProjects,
@@ -15,7 +16,6 @@ const {
   selectedSort,
   sortedAndSearchedProjects,
   searchQuery,
-  getStatusClass,
   goToProject,
 } = useProjectTablePage();
 
