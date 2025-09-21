@@ -43,7 +43,7 @@ export function useTaskTablePage() {
   const sortedAndSearchedTasks = computed(() =>
     sortedTasks.value.filter(
       (task) =>
-        task.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+        task.assignee.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         task.status.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
   );
