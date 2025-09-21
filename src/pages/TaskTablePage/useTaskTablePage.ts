@@ -1,6 +1,6 @@
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { Task } from "@/store/TaskModule/types";
 import { useDraggable } from "@/hooks/useDraggable";
 import { useToast } from "vue-toastification";
@@ -11,10 +11,13 @@ export function useTaskTablePage() {
   const store = useStore();
   const taskId = Number(route.params.id);
   const isModalOpen = ref(false);
-  const selectedSort = ref("");
+  const selectedSort = ref(localStorage.getItem("tasksSort") || "");
   const searchQuery = ref("");
-
   const toast = useToast();
+
+  watch(selectedSort, (newValue) => {
+    localStorage.setItem("tasksSort", newValue);
+  });
 
   const sortOptions = [
     { value: "dueDate", name: "За терміном" },

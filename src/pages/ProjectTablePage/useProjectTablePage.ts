@@ -1,5 +1,5 @@
 import { useStore } from "vuex";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { Project } from "@/store/ProjectModule/types";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
@@ -8,10 +8,13 @@ export function useProjectTablePage() {
   const store = useStore();
   const router = useRouter();
   const isModalOpen = ref(false);
-  const selectedSort = ref("");
+  const selectedSort = ref(localStorage.getItem("projectSort") || "");
   const searchQuery = ref("");
-
   const toast = useToast();
+
+  watch(selectedSort, (newValue) => {
+    localStorage.setItem("projectSort", newValue);
+  });
 
   const sortOptions = [
     { value: "id", name: "По ID" },
