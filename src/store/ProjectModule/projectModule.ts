@@ -13,7 +13,7 @@ export const projectModule: Module<ProjectState, RootState> = {
     },
   },
   mutations: {
-    setProjects(state, projects: Project[]) {
+    setProjects(state, projects: Project[]): void {
       state.projects = projects;
     },
   },

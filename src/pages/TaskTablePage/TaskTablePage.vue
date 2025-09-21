@@ -70,6 +70,10 @@ const {
         </template>
       </draggable>
     </table>
+
+    <div v-if="!draggableTasks.length" class="no-projects">
+      Додайте завдання
+    </div>
   </div>
 </template>
 
@@ -164,6 +168,13 @@ const {
   .buttons {
     display: flex;
     justify-content: space-between;
+  }
+
+  .no-projects {
+    text-align: center;
+    color: #555;
+    font-weight: bold;
+    padding: 15px 0;
   }
 }
 </style>

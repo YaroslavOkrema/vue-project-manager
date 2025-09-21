@@ -42,6 +42,7 @@ onMounted(() => {
       />
       <MySelect v-model="selectedSort" :options="sortOptions"></MySelect>
     </div>
+
     <table class="projects-table">
       <thead>
         <tr>
@@ -50,6 +51,7 @@ onMounted(() => {
           <th>Кількість завдань</th>
           <th>Статус</th>
           <th>Дата створення</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -67,9 +69,14 @@ onMounted(() => {
             </span>
           </td>
           <td>{{ project.created }}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
+
+    <div v-if="!sortedAndSearchedProjects.length" class="no-projects">
+      Додайте проекти
+    </div>
   </div>
 </template>
 
@@ -143,6 +150,13 @@ onMounted(() => {
     gap: 8px;
     width: 100%;
     margin-bottom: 20px;
+  }
+
+  .no-projects {
+    text-align: center;
+    color: #555;
+    font-weight: bold;
+    padding: 15px 0;
   }
 }
 </style>
