@@ -27,7 +27,7 @@ export function useFormTasks(
     if (!validate()) return false;
 
     await addTaskFn({
-      id: Date.now(),
+      id: Date.now().toString(),
       projectId,
       title: taskName.value,
       assignee: assigned.value,

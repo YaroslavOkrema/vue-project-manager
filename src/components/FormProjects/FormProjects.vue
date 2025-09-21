@@ -14,7 +14,7 @@ const submit = async () => {
   if (!validate()) return;
 
   await props.addProject({
-    id: Date.now(),
+    id: Date.now().toString(),
     projectName: projectName.value,
     status: status.value,
     created: new Date().toLocaleDateString("uk-UA"),

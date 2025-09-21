@@ -16,7 +16,7 @@ export const projectModule: Module<ProjectState, RootState> = {
     setProjects(state: ProjectState, projects: Project[]): void {
       state.projects = projects;
     },
-    removeProject(state: ProjectState, id: number) {
+    removeProject(state: ProjectState, id: string) {
       state.projects = state.projects.filter((project) => project.id !== id);
     },
   },
@@ -41,7 +41,7 @@ export const projectModule: Module<ProjectState, RootState> = {
         console.error(error);
       }
     },
-    async deleteProject({ commit }, id: number) {
+    async deleteProject({ commit }, id: number | string) {
       try {
         await axios.delete(`http://localhost:3000/projects/${id}`);
         commit("removeProject", id);

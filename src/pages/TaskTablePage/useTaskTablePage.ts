@@ -3,6 +3,7 @@ import { useStore } from "vuex";
 import { ref, computed, onMounted } from "vue";
 import { Task } from "@/store/TaskModule/types";
 import { useDraggable } from "@/hooks/useDraggable";
+import { useToast } from "vue-toastification";
 
 export function useTaskTablePage() {
   const route = useRoute();
@@ -12,6 +13,8 @@ export function useTaskTablePage() {
   const isModalOpen = ref(false);
   const selectedSort = ref("");
   const searchQuery = ref("");
+
+  const toast = useToast();
 
   const sortOptions = [
     { value: "dueDate", name: "За терміном" },
@@ -55,8 +58,9 @@ export function useTaskTablePage() {
 
   const draggableTasks = useDraggable(sortedAndSearchedTasks);
 
-  const onDeleteTask = async (taskId: number) => {
+  const onDeleteTask = async (taskId: string) => {
     await store.dispatch("tasks/deleteTask", taskId);
+    toast.error("Завдання успішно видалене!");
   };
 
   return {

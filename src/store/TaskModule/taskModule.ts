@@ -16,7 +16,7 @@ export const taskModule: Module<TaskState, RootState> = {
     setTasks(state: TaskState, tasks: Task[]): void {
       state.tasks = tasks;
     },
-    removeTask(state: TaskState, taskId: number): void {
+    removeTask(state: TaskState, taskId: string): void {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
   },

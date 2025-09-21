@@ -2,6 +2,7 @@ import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import { Project } from "@/store/ProjectModule/types";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
 
 export function useProjectTablePage() {
   const store = useStore();
@@ -9,6 +10,8 @@ export function useProjectTablePage() {
   const isModalOpen = ref(false);
   const selectedSort = ref("");
   const searchQuery = ref("");
+
+  const toast = useToast();
 
   const sortOptions = [
     { value: "id", name: "По ID" },
@@ -54,6 +57,7 @@ export function useProjectTablePage() {
 
   const onDelete = async (id: string) => {
     await store.dispatch("projects/deleteProject", id);
+    toast.error("Проект видалений!");
   };
 
   return {

@@ -1,5 +1,5 @@
 export interface Project {
-  id: number;
+  id: string;
   projectName: string;
   tasksCount: number;
   status: string;
