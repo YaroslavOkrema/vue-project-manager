@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { Task } from "@/store/TaskModule/types";
+import { useToast } from "vue-toastification";
 
 export function useFormTasks(
   addTaskFn: (task: Task) => Promise<void>,
@@ -10,6 +11,8 @@ export function useFormTasks(
   const status = ref("Active");
   const dueDate = ref("");
   const error = ref("");
+
+  const toast = useToast();
 
   const options = ["Active", "In Progress", "Completed"];
 
@@ -33,6 +36,7 @@ export function useFormTasks(
     });
 
     resetForm();
+    toast.success("Завдання успішно додано");
     return true;
   };
 
@@ -71,5 +75,6 @@ export function useFormTasks(
     resetForm,
     validate,
     error,
+    toast,
   };
 }

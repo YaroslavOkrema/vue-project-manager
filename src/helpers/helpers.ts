@@ -1,4 +1,5 @@
 import { Status } from "@/types/enums";
+import { PluginOptions, POSITION } from "vue-toastification";
 
 export const getStatusClass = (status: string) => {
   switch (status.toLowerCase()) {
@@ -12,4 +13,11 @@ export const getStatusClass = (status: string) => {
     default:
       return "";
   }
+};
+
+export const toastOptions: PluginOptions = {
+  position: POSITION.BOTTOM_RIGHT,
+  timeout: 3000,
+  closeOnClick: true,
+  pauseOnHover: true,
 };

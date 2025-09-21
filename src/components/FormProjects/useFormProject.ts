@@ -1,10 +1,13 @@
 import { ref } from "vue";
+import { useToast } from "vue-toastification";
 
 export function useFormProject() {
   const projectName = ref("");
   const status = ref("Active");
   const tasksCount = ref(0);
   const error = ref("");
+
+  const toast = useToast();
 
   const validate = () => {
     if (!projectName.value.trim()) {
@@ -18,5 +21,5 @@ export function useFormProject() {
     return true;
   };
 
-  return { projectName, status, tasksCount, error, validate };
+  return { projectName, status, tasksCount, error, validate, toast };
 }

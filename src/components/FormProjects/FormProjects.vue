@@ -7,7 +7,8 @@ const props = defineProps<FormProjectProps>();
 
 const emit = defineEmits<{ (e: "update:isModalOpen", value: boolean): void }>();
 
-const { projectName, status, tasksCount, error, validate } = useFormProject();
+const { projectName, status, tasksCount, error, validate, toast } =
+  useFormProject();
 
 const submit = async () => {
   if (!validate()) return;
@@ -24,6 +25,7 @@ const submit = async () => {
   tasksCount.value = 0;
 
   emit("update:isModalOpen", false);
+  toast.success("Проєкт успішно додано");
 };
 </script>
 
