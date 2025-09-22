@@ -8,7 +8,7 @@ export const projectModule: Module<ProjectState, RootState> = {
     projects: [],
   }),
   getters: {
-    allProject(state) {
+    allProject(state: ProjectState): Project[] {
       return state.projects;
     },
   },
@@ -16,17 +16,17 @@ export const projectModule: Module<ProjectState, RootState> = {
     setProjects(state: ProjectState, projects: Project[]): void {
       state.projects = projects;
     },
-    removeProject(state: ProjectState, id: string) {
+    removeProject(state: ProjectState, id: string): void {
       state.projects = state.projects.filter((project) => project.id !== id);
     },
-    updateProject(state: ProjectState, updated: Project) {
+    updateProject(state: ProjectState, updated: Project): void {
       state.projects = state.projects.map((p) =>
         p.id === updated.id ? updated : p
       );
     },
   },
   actions: {
-    async fetchProjects({ commit }) {
+    async fetchProjects({ commit }): Promise<void> {
       try {
         const response = await axios.get("http://localhost:3000/projects");
         commit("setProjects", response.data);
@@ -35,7 +35,7 @@ export const projectModule: Module<ProjectState, RootState> = {
       }
     },
 
-    async addProject({ commit, state }, newProject: Project) {
+    async addProject({ commit, state }, newProject: Project): Promise<void> {
       try {
         const response = await axios.post<Project>(
           "http://localhost:3000/projects",
@@ -47,7 +47,7 @@ export const projectModule: Module<ProjectState, RootState> = {
       }
     },
 
-    async deleteProject({ commit }, id: number | string) {
+    async deleteProject({ commit }, id: number | string): Promise<void> {
       try {
         await axios.delete(`http://localhost:3000/projects/${id}`);
         commit("removeProject", id);
@@ -56,7 +56,7 @@ export const projectModule: Module<ProjectState, RootState> = {
       }
     },
 
-    async updateProject({ commit }, updated: Project) {
+    async updateProject({ commit }, updated: Project): Promise<void> {
       try {
         const response = await axios.put<Project>(
           `http://localhost:3000/projects/${updated.id}`,

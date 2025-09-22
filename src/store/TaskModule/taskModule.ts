@@ -19,7 +19,7 @@ export const taskModule: Module<TaskState, RootState> = {
     removeTask(state: TaskState, taskId: string): void {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
-    updateTask(state: TaskState, updated: Task) {
+    updateTask(state: TaskState, updated: Task): void {
       state.tasks = state.tasks.map((t) => (t.id === updated.id ? updated : t));
     },
   },
