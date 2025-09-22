@@ -36,6 +36,7 @@ export function useFormTasks(
       } else {
         taskName.value = "";
         assigned.value = "";
+
         status.value = "Active";
         dueDate.value = "";
       }

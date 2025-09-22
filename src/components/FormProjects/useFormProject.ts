@@ -18,6 +18,7 @@ export function useFormProject() {
       return false;
     }
     error.value = "";
+
     return true;
   };
 
