@@ -7,6 +7,7 @@ import FormTasks from "@/components/FormTasks/FormTasks.vue";
 import { useTaskTablePage } from "@/pages/TaskTablePage/useTaskTablePage";
 import draggable from "vuedraggable";
 import { getStatusClass } from "@/helpers/helpers";
+import { Trash, SquarePen } from "lucide-vue-next";
 
 const {
   taskId,
@@ -83,11 +84,11 @@ const {
             </td>
             <td>{{ element.dueDate }}</td>
             <td>
-              <button class="delete-btn" @click="onDeleteTask(element.id)">
-                Видалити
-              </button>
               <button class="edit-btn" @click.stop="onEdit(element)">
-                Редагувати
+                <SquarePen />
+              </button>
+              <button class="delete-btn" @click="onDeleteTask(element.id)">
+                <Trash />
               </button>
             </td>
           </tr>
@@ -189,17 +190,33 @@ const {
     }
 
     .delete-btn {
-      background-color: #dc3545;
-      color: #fff;
+      background: none;
+      color: gray;
       border: none;
-      border-radius: 4px;
       padding: 2px 6px;
-      font-size: 12px;
       cursor: pointer;
       transition: background-color 0.2s, transform 0.1s;
 
       &:hover {
-        background-color: #c82333;
+        color: red;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+
+    .edit-btn {
+      background: none;
+      border: none;
+      color: gray;
+      padding: 2px 6px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+
+      &:hover {
+        color: #2e52cf;
         transform: scale(1.05);
       }
 

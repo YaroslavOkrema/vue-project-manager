@@ -7,6 +7,7 @@ import MySelect from "@/components/MySelect/MySelect.vue";
 import MyButton from "@/components/MyButton/MyButton.vue";
 import MyInput from "@/components/MyInput/MyInput.vue";
 import { getStatusClass } from "@/helpers/helpers";
+import { SquarePen, Trash } from "lucide-vue-next";
 
 const {
   loadProjects,
@@ -85,11 +86,11 @@ onMounted(() => {
           </td>
           <td>{{ project.created }}</td>
           <td>
-            <button class="delete-btn" @click.stop="onDelete(project.id)">
-              Видалити
-            </button>
             <button class="edit-btn" @click.stop="onEdit(project)">
-              Редагувати
+              <SquarePen />
+            </button>
+            <button class="delete-btn" @click.stop="onDelete(project.id)">
+              <Trash />
             </button>
           </td>
         </tr>
@@ -166,17 +167,33 @@ onMounted(() => {
       }
 
       .delete-btn {
-        background-color: #dc3545;
-        color: #fff;
+        background: none;
+        color: gray;
         border: none;
-        border-radius: 4px;
         padding: 2px 6px;
-        font-size: 12px;
         cursor: pointer;
         transition: background-color 0.2s, transform 0.1s;
 
         &:hover {
-          background-color: #c82333;
+          color: red;
+          transform: scale(1.05);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+
+      .edit-btn {
+        background: none;
+        border: none;
+        color: gray;
+        padding: 2px 6px;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+
+        &:hover {
+          color: #2e52cf;
           transform: scale(1.05);
         }
 
