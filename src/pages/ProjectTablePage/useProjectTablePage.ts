@@ -1,0 +1,92 @@
+import { useStore } from "vuex";
+import { computed, ref, watch } from "vue";
+import { Project } from "@/store/ProjectModule/types";
+import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+
+export function useProjectTablePage() {
+  const store = useStore();
+  const router = useRouter();
+  const isModalOpen = ref(false);
+  const selectedSort = ref(localStorage.getItem("projectSort") || "");
+  const searchQuery = ref("");
+  const toast = useToast();
+  const currentProject = ref<Project | null>(null);
+
+  watch(selectedSort, (newValue) => {
+    localStorage.setItem("projectSort", newValue);
+  });
+
+  const sortOptions = [
+    { value: "id", name: "По ID" },
+    { value: "projectName", name: "По назві проєкту" },
+    { value: "tasksCount", name: "По кількості завдань" },
+    { value: "status", name: "По статусу" },
+  ];
+
+  const projects = computed<Project[]>(
+    () => store.getters["projects/allProject"]
+  );
+
+  const updateProject = async (project: Project) => {
+    await store.dispatch("projects/updateProject", project);
+  };
+
+  const loadProjects = () => {
+    return store.dispatch("projects/fetchProjects");
+  };
+
+  const addProject = (project: Omit<Project, "id">) => {
+    return store.dispatch("projects/addProject", project);
+  };
+
+  const sortedProjects = computed(() =>
+    selectedSort.value
+      ? [...projects.value].sort((a: Project, b: Project) => {
+          const valA = a[selectedSort.value as keyof typeof a];
+          const valB = b[selectedSort.value as keyof typeof b];
+
+          return typeof valA === "string" && typeof valB === "string"
+            ? valA.localeCompare(valB)
+            : (valA as number) - (valB as number);
+        })
+      : projects.value
+  );
+
+  const sortedAndSearchedProjects = computed(() => {
+    return sortedProjects.value.filter((post) =>
+      post.projectName.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+  });
+
+  const goToProject = (id: string): void => {
+    router.push(`/tasks/${id}`);
+  };
+
+  const onDelete = async (id: string) => {
+    await store.dispatch("projects/deleteProject", id);
+    toast.error("Проект видалений!");
+  };
+
+  const onEdit = (project: Project) => {
+    currentProject.value = { ...project };
+    isModalOpen.value = true;
+  };
+
+  return {
+    loadProjects,
+    addProject,
+    isModalOpen,
+    sortedProjects,
+    sortOptions,
+    selectedSort,
+    sortedAndSearchedProjects,
+    searchQuery,
+    router,
+    goToProject,
+    onDelete,
+    onEdit,
+    updateProject,
+    currentProject,
+  };
+}

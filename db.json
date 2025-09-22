@@ -1,0 +1,138 @@
+{
+  "projects": [
+    {
+      "id": "1758472144159",
+      "projectName": "Weather App",
+      "tasksCount": 3,
+      "status": "Active",
+      "created": "21.09.2025"
+    },
+    {
+      "id": "1758472144160",
+      "projectName": "E-Commerce Platform",
+      "tasksCount": 2,
+      "status": "Active",
+      "created": "15.09.2025"
+    },
+    {
+      "id": "1758472144161",
+      "projectName": "Portfolio Website",
+      "tasksCount": 4,
+      "status": "Active",
+      "created": "10.09.2025"
+    },
+    {
+      "id": "1758549626645",
+      "projectName": "Expense Tracker",
+      "status": "Active",
+      "created": "22.09.2025",
+      "tasksCount": 3
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1758472144201",
+      "projectId": 1758472144159,
+      "title": "Set up project structure",
+      "assignee": "Alice Prom",
+      "status": "Active",
+      "dueDate": "22.09.2025"
+    },
+    {
+      "id": "1758472144203",
+      "projectId": 1758472144159,
+      "title": "Build UI components",
+      "assignee": "Charlie",
+      "status": "In Progress",
+      "dueDate": "28.09.2025"
+    },
+    {
+      "id": "1758547031353",
+      "projectId": 1758472144159,
+      "title": "Create window",
+      "assignee": "Roman",
+      "status": "In Progress",
+      "dueDate": "12.10.2025"
+    },
+    {
+      "id": "1758472144210",
+      "projectId": 1758472144160,
+      "title": "Design database schema",
+      "assignee": "Diana",
+      "status": "In Progress",
+      "dueDate": "30.09.2025"
+    },
+    {
+      "id": "1758472144211",
+      "projectId": 1758472144160,
+      "title": "Implement product listing",
+      "assignee": "Evan",
+      "status": "Completed",
+      "dueDate": "05.10.2025"
+    },
+    {
+      "id": "1758472144220",
+      "projectId": 1758472144161,
+      "title": "Create homepage",
+      "assignee": "Alice",
+      "status": "Active",
+      "dueDate": "03.09.2025"
+    },
+    {
+      "id": "1758472144221",
+      "projectId": 1758472144161,
+      "title": "Build about page",
+      "assignee": "Bob",
+      "status": "Completed",
+      "dueDate": "05.09.2025"
+    },
+    {
+      "id": "1758472144222",
+      "projectId": 1758472144161,
+      "title": "Deploy to hosting",
+      "assignee": "Roman",
+      "status": "Active",
+      "dueDate": "10.09.2025"
+    },
+    {
+      "id": "1758472144223",
+      "projectId": 1758472144161,
+      "title": "Fix responsive layout",
+      "assignee": "Diana",
+      "status": "Active",
+      "dueDate": "12.09.2025"
+    },
+    {
+      "id": "1758480245241",
+      "projectId": 76,
+      "title": "Створити таблицю проектів",
+      "assignee": "Yaroslav",
+      "status": "Active",
+      "dueDate": "24.09.2025"
+    },
+    {
+      "id": "1758549665096",
+      "projectId": 1758549626645,
+      "title": "Create design",
+      "assignee": "Roman",
+      "status": "Active",
+      "dueDate": "2025-09-30"
+    },
+    {
+      "id": "1758549691337",
+      "projectId": 1758549626645,
+      "title": "Create main page",
+      "assignee": "Yaroslav",
+      "status": "Active",
+      "dueDate": "2025-10-02"
+    },
+    {
+      "id": "1758549714717",
+      "projectId": 1758549626645,
+      "title": "Create settings",
+      "assignee": "Max",
+      "status": "Active",
+      "dueDate": "2025-10-09"
+    }
+  ]
+}
