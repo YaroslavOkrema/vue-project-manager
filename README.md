@@ -1,24 +1,18 @@
-# vue-project-manager
+# Project manager
 
-## Project setup
+## Інструкція по запуску
+
+### Встановіть залежності
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Запустіть сервер
+```
+npm run server
+```
+
+### Запустіть проект
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
