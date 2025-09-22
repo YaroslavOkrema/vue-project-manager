@@ -19,6 +19,9 @@ const {
   draggableTasks,
   goBack,
   onDeleteTask,
+  currentTask,
+  onEdit,
+  updateTask,
 } = useTaskTablePage();
 </script>
 
@@ -26,11 +29,22 @@ const {
   <div class="table-container">
     <h2>ID проекту: {{ route.params.id }}</h2>
     <div class="buttons">
-      <MyButton text="Додати завдання" @click="isModalOpen = true" />
+      <MyButton
+        text="Додати завдання"
+        @click="
+          currentTask = null;
+          isModalOpen = true;
+        "
+      />
       <MyButton text="Назад" @click="goBack" />
     </div>
-    <ModalWindow v-model="isModalOpen" title="Додати нове завдання">
+    <ModalWindow
+      v-model="isModalOpen"
+      :title="currentTask ? 'Редагувати завдання' : 'Додати завдання'"
+    >
       <FormTasks
+        :task="currentTask"
+        :update-task="updateTask"
         :project-id="taskId"
         :add-task="addTask"
         v-model:isModalOpen="isModalOpen"
@@ -71,6 +85,9 @@ const {
             <td>
               <button class="delete-btn" @click="onDeleteTask(element.id)">
                 Видалити
+              </button>
+              <button class="edit-btn" @click.stop="onEdit(element)">
+                Редагувати
               </button>
             </td>
           </tr>

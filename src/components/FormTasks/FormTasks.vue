@@ -9,7 +9,7 @@ const props = defineProps<FormTasksProps>();
 const emit = defineEmits<{ (e: "update:isModalOpen", value: boolean): void }>();
 
 const { taskName, assigned, status, dueDate, submitTask, options, error } =
-  useFormTasks(props.addTask, props.projectId);
+  useFormTasks(props.addTask, props.projectId, props.task, props.updateTask);
 
 const submitAndClose = async () => {
   const success = await submitTask();

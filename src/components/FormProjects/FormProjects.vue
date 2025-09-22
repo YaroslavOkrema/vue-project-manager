@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, watch } from "vue";
 import { useFormProject } from "@/components/FormProjects/useFormProject";
 import { FormProjectProps } from "@/components/FormProjects/types";
 
@@ -10,22 +10,45 @@ const emit = defineEmits<{ (e: "update:isModalOpen", value: boolean): void }>();
 const { projectName, status, tasksCount, error, validate, toast } =
   useFormProject();
 
+watch(
+  () => props.project,
+  (newProject) => {
+    if (newProject) {
+      projectName.value = newProject.projectName;
+      tasksCount.value = newProject.tasksCount;
+      status.value = newProject.status;
+    } else {
+      projectName.value = "";
+      tasksCount.value = 0;
+      status.value = "Active";
+    }
+  },
+  { immediate: true }
+);
+
 const submit = async () => {
   if (!validate()) return;
 
-  await props.addProject({
-    id: Date.now().toString(),
-    projectName: projectName.value,
-    status: status.value,
-    created: new Date().toLocaleDateString("uk-UA"),
-    tasksCount: tasksCount.value,
-  });
-
-  projectName.value = "";
-  tasksCount.value = 0;
+  if (props.project) {
+    await props.updateProject({
+      ...props.project,
+      projectName: projectName.value,
+      status: status.value,
+      tasksCount: tasksCount.value,
+    });
+    toast.success("Проєкт оновлено");
+  } else {
+    await props.addProject({
+      id: Date.now().toString(),
+      projectName: projectName.value,
+      status: status.value,
+      created: new Date().toLocaleDateString("uk-UA"),
+      tasksCount: tasksCount.value,
+    });
+    toast.success("Проєкт додано");
+  }
 
   emit("update:isModalOpen", false);
-  toast.success("Проєкт успішно додано");
 };
 </script>
 

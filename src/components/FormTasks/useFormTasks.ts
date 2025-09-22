@@ -1,10 +1,12 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Task } from "@/store/TaskModule/types";
 import { useToast } from "vue-toastification";
 
 export function useFormTasks(
   addTaskFn: (task: Task) => Promise<void>,
-  projectId: number
+  projectId: number,
+  task: Task | null,
+  updateTask: (task: Task) => Promise<void>
 ) {
   const taskName = ref("");
   const assigned = ref("");
@@ -23,20 +25,51 @@ export function useFormTasks(
     dueDate.value = "";
   };
 
+  watch(
+    () => task,
+    (newTask) => {
+      if (newTask) {
+        taskName.value = newTask.title;
+        assigned.value = newTask.assignee;
+        status.value = newTask.status;
+        dueDate.value = newTask.dueDate;
+      } else {
+        taskName.value = "";
+        assigned.value = "";
+        status.value = "Active";
+        dueDate.value = "";
+      }
+    },
+    { immediate: true }
+  );
+
   const submitTask = async (): Promise<boolean> => {
     if (!validate()) return false;
 
-    await addTaskFn({
-      id: Date.now().toString(),
-      projectId,
-      title: taskName.value,
-      assignee: assigned.value,
-      status: status.value,
-      dueDate: dueDate.value,
-    });
+    if (task) {
+      await updateTask({
+        ...task,
+        title: taskName.value,
+        assignee: assigned.value,
+        status: status.value,
+        dueDate: dueDate.value,
+      });
+
+      toast.success("Завдання успішно оновлено");
+    } else {
+      await addTaskFn({
+        id: Date.now().toString(),
+        projectId,
+        title: taskName.value,
+        assignee: assigned.value,
+        status: status.value,
+        dueDate: dueDate.value,
+      });
+
+      toast.success("Завдання успішно додано");
+    }
 
     resetForm();
-    toast.success("Завдання успішно додано");
     return true;
   };
 

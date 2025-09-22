@@ -11,6 +11,7 @@ export function useProjectTablePage() {
   const selectedSort = ref(localStorage.getItem("projectSort") || "");
   const searchQuery = ref("");
   const toast = useToast();
+  const currentProject = ref<Project | null>(null);
 
   watch(selectedSort, (newValue) => {
     localStorage.setItem("projectSort", newValue);
@@ -26,6 +27,10 @@ export function useProjectTablePage() {
   const projects = computed<Project[]>(
     () => store.getters["projects/allProject"]
   );
+
+  const updateProject = async (project: Project) => {
+    await store.dispatch("projects/updateProject", project);
+  };
 
   const loadProjects = () => {
     return store.dispatch("projects/fetchProjects");
@@ -63,6 +68,11 @@ export function useProjectTablePage() {
     toast.error("Проект видалений!");
   };
 
+  const onEdit = (project: Project) => {
+    currentProject.value = { ...project };
+    isModalOpen.value = true;
+  };
+
   return {
     loadProjects,
     addProject,
@@ -75,5 +85,8 @@ export function useProjectTablePage() {
     router,
     goToProject,
     onDelete,
+    onEdit,
+    updateProject,
+    currentProject,
   };
 }

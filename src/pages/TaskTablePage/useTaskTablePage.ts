@@ -14,6 +14,7 @@ export function useTaskTablePage() {
   const selectedSort = ref(localStorage.getItem("tasksSort") || "");
   const searchQuery = ref("");
   const toast = useToast();
+  const currentTask = ref<Task | null>(null);
 
   watch(selectedSort, (newValue) => {
     localStorage.setItem("tasksSort", newValue);
@@ -28,6 +29,10 @@ export function useTaskTablePage() {
 
   const addTask = (task: Task) => {
     return store.dispatch("tasks/addTask", task);
+  };
+
+  const updateTask = async (task: Task) => {
+    await store.dispatch("tasks/updateTask", task);
   };
 
   onMounted(() => {
@@ -66,6 +71,11 @@ export function useTaskTablePage() {
     toast.error("Завдання успішно видалене!");
   };
 
+  const onEdit = (task: Task) => {
+    currentTask.value = { ...task };
+    isModalOpen.value = true;
+  };
+
   return {
     taskId,
     isModalOpen,
@@ -79,5 +89,8 @@ export function useTaskTablePage() {
     draggableTasks,
     goBack,
     onDeleteTask,
+    currentTask,
+    onEdit,
+    updateTask,
   };
 }

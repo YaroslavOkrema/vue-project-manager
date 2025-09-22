@@ -19,6 +19,9 @@ export const taskModule: Module<TaskState, RootState> = {
     removeTask(state: TaskState, taskId: string): void {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
+    updateTask(state: TaskState, updated: Task) {
+      state.tasks = state.tasks.map((t) => (t.id === updated.id ? updated : t));
+    },
   },
   actions: {
     async fetchTasks({ commit }, projectId: number): Promise<void> {
@@ -48,6 +51,18 @@ export const taskModule: Module<TaskState, RootState> = {
       try {
         await axios.delete(`http://localhost:3000/tasks/${taskId}`);
         commit("removeTask", taskId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async updateTask({ commit }, updated: Task): Promise<void> {
+      try {
+        const response = await axios.put<Task>(
+          `http://localhost:3000/tasks/${updated.id}`,
+          updated
+        );
+        commit("updateTask", response.data);
       } catch (error) {
         console.error(error);
       }

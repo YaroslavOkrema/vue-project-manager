@@ -18,6 +18,9 @@ const {
   searchQuery,
   goToProject,
   onDelete,
+  onEdit,
+  updateProject,
+  currentProject,
 } = useProjectTablePage();
 
 onMounted(() => {
@@ -28,10 +31,21 @@ onMounted(() => {
 <template>
   <div class="table-container">
     <h2>Проєкти</h2>
-    <MyButton text="Додати проект" @click="isModalOpen = true" />
-    <ModalWindow v-model="isModalOpen" title="Додати новий проект">
+    <MyButton
+      text="Додати проект"
+      @click="
+        currentProject = null;
+        isModalOpen = true;
+      "
+    />
+    <ModalWindow
+      v-model="isModalOpen"
+      :title="currentProject ? 'Редагувати проект' : 'Додати новий проект'"
+    >
       <FormProjects
+        :project="currentProject"
         :add-project="addProject"
+        :update-project="updateProject"
         v-model:is-modal-open="isModalOpen"
       />
     </ModalWindow>
@@ -73,6 +87,9 @@ onMounted(() => {
           <td>
             <button class="delete-btn" @click.stop="onDelete(project.id)">
               Видалити
+            </button>
+            <button class="edit-btn" @click.stop="onEdit(project)">
+              Редагувати
             </button>
           </td>
         </tr>

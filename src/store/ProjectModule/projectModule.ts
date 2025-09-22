@@ -19,6 +19,11 @@ export const projectModule: Module<ProjectState, RootState> = {
     removeProject(state: ProjectState, id: string) {
       state.projects = state.projects.filter((project) => project.id !== id);
     },
+    updateProject(state: ProjectState, updated: Project) {
+      state.projects = state.projects.map((p) =>
+        p.id === updated.id ? updated : p
+      );
+    },
   },
   actions: {
     async fetchProjects({ commit }) {
@@ -41,10 +46,23 @@ export const projectModule: Module<ProjectState, RootState> = {
         console.error(error);
       }
     },
+
     async deleteProject({ commit }, id: number | string) {
       try {
         await axios.delete(`http://localhost:3000/projects/${id}`);
         commit("removeProject", id);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async updateProject({ commit }, updated: Project) {
+      try {
+        const response = await axios.put<Project>(
+          `http://localhost:3000/projects/${updated.id}`,
+          updated
+        );
+        commit("updateProject", response.data);
       } catch (error) {
         console.error(error);
       }
